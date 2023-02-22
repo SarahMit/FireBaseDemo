@@ -42,12 +42,12 @@ public class Transition : MonoBehaviour
         if (currentSceneName != sceneNameList[numberOfScenes-1])
         {
             print("next");
-            //ExperimentLogger.Instance.log(Scenes[ActiveScene].name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", Scenes[ActiveScene].name, Time.realtimeSinceStartup - sceneStartTime);
-            ExperimentLogger.Instance.log(SceneManager.GetActiveScene().name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s");
             Dictionary<string, int> dict = pr.participantResponseDict;
             print(dict);
             pr.NewDict();
             print(dict);
+            //ExperimentLogger.Instance.log(Scenes[ActiveScene].name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", Scenes[ActiveScene].name, Time.realtimeSinceStartup - sceneStartTime);
+            ExperimentLogger.Instance.log(SceneManager.GetActiveScene().name, currentSceneName, dict, Time.realtimeSinceStartup - sceneStartTime);
             SceneManager.LoadScene(sceneNameList[currentSceneIndex+1]);
         }
         else
@@ -63,7 +63,7 @@ public class Transition : MonoBehaviour
         {
             print("Prev");
             //ExperimentLogger.Instance.log(Scenes[ActiveScene].name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", Scenes[ActiveScene].name, Time.realtimeSinceStartup - sceneStartTime);
-            ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s");
+            //ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s");
             SceneManager.LoadScene(sceneNameList[currentSceneIndex - 1]);
         }
         else
@@ -74,6 +74,6 @@ public class Transition : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        ExperimentLogger.Instance.log("Application quit");
+        //ExperimentLogger.Instance.log("Application quit");
     }
 }

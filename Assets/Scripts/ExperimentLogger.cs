@@ -22,7 +22,7 @@ public class ExperimentLogger : MonoBehaviour
     private static extern void Hello();
 
     [DllImport("__Internal")]
-    private static extern void WriteFirebase(string scenename, string id, string slidename, string time, string dbIndex);
+    private static extern void WriteFirebase(string experimentname, string id, string scenename, string time, Dictionary<string, int> participantresponse,string dbIndex);
 
 
     private void Awake()
@@ -55,11 +55,11 @@ public class ExperimentLogger : MonoBehaviour
             Debug.Log("New subject... writing logs to: " + filename);
 
 
-
+            //JsonConvert.SerializeObject(participantresponse);
         }
     }
 
-    public void log(string s, string slideName = "", float time = -1)
+    public void log(string s, string sceneName, Dictionary<string, int> d, float time = -1)
     {
         Debug.Log(s);
 
@@ -73,7 +73,7 @@ public class ExperimentLogger : MonoBehaviour
         if (slideName != "" && time != -1)
         {
             dbIndex += 1;
-            WriteFirebase(SceneManager.GetActiveScene().name, hashValue.ToString(), slideName, time.ToString(), dbIndex.ToString());
+            WriteFirebase(SceneManager.GetActiveScene().name, hashValue.ToString(), SceneManager.GetActiveScene().name, time.ToString(), JsonConvert.SerializeObject(participantresponse), dbIndex.ToString());
         }
 #endif
     }
