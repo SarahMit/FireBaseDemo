@@ -32,10 +32,6 @@ public class ExperimentLogger : MonoBehaviour
 
     private void Awake()
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
-         Hello();
-#endif
-
         // If there is an instance, and it's not me, delete myself.
 
         if (Instance != null && Instance != this)
@@ -80,7 +76,7 @@ public class ExperimentLogger : MonoBehaviour
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (sceneName != "" && time != -1)
+        if (sceneName != "")
         {
             dbIndex += 1;
             WriteFirebase(projectName, hashValue.ToString(), sceneName, pr.DictionaryToJSON(dict), dbIndex);
