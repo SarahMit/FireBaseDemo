@@ -5,47 +5,105 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class ParticipantResponses : MonoBehaviour
+public class ParticipantResponses
 {
-    //[SerializeField] GameObject[] UIElements;
-    //List<GameObject> UIElementsList = new List<GameObject>();
-    public Dictionary<string, int> participantResponseDict = new Dictionary<string, int>();
+    //stores all responses added by UpdateSelection since the last call of TrackChanges
+    private Dictionary<string, int> recentParticipantResponses = new Dictionary<string, int>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //stores all responses 
+    private Dictionary<string, int> totalParticipantResponses = new Dictionary<string, int>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateSelection()
     {
-        print("test");
         GameObject currentGO = EventSystem.current.currentSelectedGameObject;
         string currentNameKey = currentGO.name;
         //ParticipantResponseDict[currentNameKey] = value;
+
 
         // if toggle button
         if (EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>() != null)
         {
             Toggle toggle = EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>();
-            participantResponseDict[currentNameKey] = toggle.isOn ? 1 : 0;
+            recentParticipantResponses[currentNameKey] = toggle.isOn ? 1 : 0;
         }
+        
         // if slider
         if (EventSystem.current.currentSelectedGameObject.GetComponent<Slider>() != null)
         {
             Slider slider = EventSystem.current.currentSelectedGameObject.GetComponent<Slider>();
-            participantResponseDict[currentNameKey] = (int)slider.value;
+            recentParticipantResponses[currentNameKey] = (int)slider.value;
         }
+        Debug.Log("After: " + DictionaryToString(recentParticipantResponses));
     }
 
-    public void NewDict()
+    public Dictionary<string, int> GetRecentParticipantResponses()
     {
-        participantResponseDict.Clear();
+        return recentParticipantResponses;
     }
+
+    public Dictionary<string, int> TrackChanges()
+    {
+        Dictionary<string, int> changes = new Dictionary<string, int>();
+        foreach (var pair in recentParticipantResponses)
+        {
+            if (totalParticipantResponses.ContainsKey(pair.Key))
+            {
+                if (totalParticipantResponses[pair.Key] != pair.Value)
+                    changes.Add(pair.Key, pair.Value);
+            }
+            else
+            {
+                changes.Add(pair.Key, pair.Value);
+            }
+            totalParticipantResponses[pair.Key] = pair.Value;
+        }
+        recentParticipantResponses.Clear();
+        return changes;
+    }
+
+    public Dictionary<string, int> GetTotalParticipantResponses()
+    {
+        Dictionary<string, int> responses = new Dictionary<string, int>();
+        foreach (var pair in recentParticipantResponses)
+        {
+            if (responses.ContainsKey(pair.Key))
+            {
+                responses.Add(pair.Key, pair.Value);
+            }
+        }
+        return responses;
+    }
+
+    public string DictionaryToString(Dictionary<string, int> dict)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("");
+        foreach (var pair in dict)
+        {
+            sb.Append(pair.Key.ToString() + ": " + pair.Value.ToString() + "; ");
+        }
+        return sb.ToString();
+    }
+
+    public string DictionaryToJSON(Dictionary<string, int> dict)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("");
+        sb.Append('"' + "Responses" + '"' + ":{\n");
+        int startlength = sb.Length;
+        foreach (var pair in dict)
+        {
+            sb.Append('"' + pair.Key.ToString() + '"' + ':' + pair.Value.ToString() + ",\n");
+        }
+
+        // remove the comma of the last line
+        if (sb.Length > startlength)
+        {
+            Debug.Log(sb.Length - 1);
+            sb.Remove(sb.Length - 2, 1);
+        }
+
+        sb.Append("}");
+        return sb.ToString();
+    }
+
 }

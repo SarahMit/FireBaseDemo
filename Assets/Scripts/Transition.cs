@@ -14,7 +14,6 @@ public class Transition : MonoBehaviour
 
     float sceneStartTime;
 
-    ParticipantResponses pr;
 
     public void Awake()
     {
@@ -25,8 +24,6 @@ public class Transition : MonoBehaviour
     {
         sceneStartTime = Time.realtimeSinceStartup;
         numberOfScenes = sceneNameList.Count;
-
-        pr = GetComponent<ParticipantResponses>();
     }
 
     void OnGUI()
@@ -37,17 +34,14 @@ public class Transition : MonoBehaviour
         currentSceneIndex = sceneNameList.IndexOf(currentSceneName);
     }
 
-        public void GoToNext()
+    public void GoToNext()
     {
         if (currentSceneName != sceneNameList[numberOfScenes-1])
         {
-            print("next");
-            Dictionary<string, int> dict = pr.participantResponseDict;
-            print(dict);
-            pr.NewDict();
-            print(dict);
-            //ExperimentLogger.Instance.log(Scenes[ActiveScene].name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", Scenes[ActiveScene].name, Time.realtimeSinceStartup - sceneStartTime);
-            ExperimentLogger.Instance.log(SceneManager.GetActiveScene().name, currentSceneName, dict, Time.realtimeSinceStartup - sceneStartTime);
+            print("Next slide");
+            var dict = ExperimentLogger.Instance.pr.TrackChanges();
+
+            ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
             SceneManager.LoadScene(sceneNameList[currentSceneIndex+1]);
         }
         else
@@ -61,9 +55,10 @@ public class Transition : MonoBehaviour
     {
         if (currentSceneName != sceneNameList[0])
         {
-            print("Prev");
-            //ExperimentLogger.Instance.log(Scenes[ActiveScene].name + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", Scenes[ActiveScene].name, Time.realtimeSinceStartup - sceneStartTime);
-            //ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s");
+            print("Previous slide");
+            var dict = ExperimentLogger.Instance.pr.TrackChanges();
+
+            ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
             SceneManager.LoadScene(sceneNameList[currentSceneIndex - 1]);
         }
         else

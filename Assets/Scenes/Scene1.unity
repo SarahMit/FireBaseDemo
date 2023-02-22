@@ -408,6 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167942198}
   - component: {fileID: 167942199}
+  - component: {fileID: 167942200}
   m_Layer: 5
   m_Name: Toggle 2
   m_TagString: Untagged
@@ -483,19 +484,31 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 167942200}
+        m_TargetAssemblyTypeName: DataLogger, Assembly-CSharp
+        m_MethodName: ValueUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &167942200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167942197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bd21a4fe8025a429cf863b8674703a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195915946
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +729,6 @@ GameObject:
   - component: {fileID: 468354897}
   - component: {fileID: 468354896}
   - component: {fileID: 468354898}
-  - component: {fileID: 468354899}
   m_Layer: 0
   m_Name: LogHandler
   m_TagString: Untagged
@@ -767,18 +779,6 @@ MonoBehaviour:
   sceneNameList:
   - Scene1
   - Scene2
---- !u!114 &468354899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468354895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48de93ae9d0ddaa4b86903e88c90a713, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &482385465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876866709}
   - component: {fileID: 876866710}
+  - component: {fileID: 876866711}
   m_Layer: 5
   m_Name: Toggle 3
   m_TagString: Untagged
@@ -1327,19 +1328,31 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 876866711}
+        m_TargetAssemblyTypeName: DataLogger, Assembly-CSharp
+        m_MethodName: ValueUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &876866711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876866708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bd21a4fe8025a429cf863b8674703a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &883982587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,6 +1942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206932643}
   - component: {fileID: 1206932644}
+  - component: {fileID: 1206932645}
   m_Layer: 5
   m_Name: Toggle 1
   m_TagString: Untagged
@@ -2004,9 +2018,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ParticipantResponses, Assembly-CSharp
-        m_MethodName: UpdateSelection
+      - m_Target: {fileID: 1206932645}
+        m_TargetAssemblyTypeName: DataLogger, Assembly-CSharp
+        m_MethodName: ValueUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2017,6 +2031,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &1206932645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206932642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bd21a4fe8025a429cf863b8674703a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1301847705
 GameObject:
   m_ObjectHideFlags: 0

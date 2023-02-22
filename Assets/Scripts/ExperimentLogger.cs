@@ -12,24 +12,23 @@ public class ExperimentLogger : MonoBehaviour
     FileStream fs;
     StreamWriter sw;
     string filename;
-    int dbIndex = 0;
+    int dbIndex = 0;    //tracks the number of data base writes to firebase
+
+    public ParticipantResponses pr;
+
 
     [SerializeField] TextMeshProUGUI instancetext;
 
     public static ExperimentLogger Instance { get; private set; }
 
     [DllImport("__Internal")]
-    private static extern void Hello();
+    private static extern void WriteFirebase(string projectName, string userID, string scenename, string responses, int dbindex);
 
-    [DllImport("__Internal")]
-    private static extern void WriteFirebase(string experimentname, string id, string scenename, string time, Dictionary<string, int> participantresponse,string dbIndex);
 
 
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
-
-        DontDestroyOnLoad(gameObject);
 
         if (Instance != null && Instance != this)
         {
@@ -37,6 +36,7 @@ public class ExperimentLogger : MonoBehaviour
         }
         else
         {
+            DontDestroyOnLoad(gameObject);
             Instance = this;
 
             // determine random hash and recompute in case of a random hash collission
@@ -54,27 +54,36 @@ public class ExperimentLogger : MonoBehaviour
 
             Debug.Log("New subject... writing logs to: " + filename);
 
-
-            //JsonConvert.SerializeObject(participantresponse);
+            // dependency injection
+            pr = new ParticipantResponses();
         }
     }
 
-    public void log(string s, string sceneName, Dictionary<string, int> d, float time = -1)
+    public void log(string s, string sceneName, Dictionary<string, int> dict, float time = -1)
     {
-        Debug.Log(s);
+        Debug.Log(s + "; " + pr.DictionaryToString(dict));
+        var projectName = Application.productName;
+
 
         using (FileStream fs = new FileStream(filename, FileMode.Append, FileAccess.Write))
         using (StreamWriter sw = new StreamWriter(fs))
         {
-            sw.WriteLine(s);
+            sw.WriteLine(s + "; " + pr.DictionaryToString(dict));
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (slideName != "" && time != -1)
+        if (sceneName != "" && time != -1)
         {
             dbIndex += 1;
-            WriteFirebase(SceneManager.GetActiveScene().name, hashValue.ToString(), SceneManager.GetActiveScene().name, time.ToString(), JsonConvert.SerializeObject(participantresponse), dbIndex.ToString());
+            WriteFirebase(projectName, hashValue.ToString(), sceneName, pr.DictionaryToJSON(dict), dbIndex);
         }
 #endif
+    }
+
+    public void UpdateResponses()
+    {
+        pr.UpdateSelection();
+        //Dictionary<string, int> changes = pr.GetRecentParticipantResponses();
+        //print("recent changes:" + pr.DictionaryToString(changes));
     }
 }
