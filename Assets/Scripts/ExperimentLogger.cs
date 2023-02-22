@@ -22,12 +22,20 @@ public class ExperimentLogger : MonoBehaviour
     public static ExperimentLogger Instance { get; private set; }
 
     [DllImport("__Internal")]
+    private static extern void Hello();
+
+
+    [DllImport("__Internal")]
     private static extern void WriteFirebase(string projectName, string userID, string scenename, string responses, int dbindex);
 
 
 
     private void Awake()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+         Hello();
+#endif
+
         // If there is an instance, and it's not me, delete myself.
 
         if (Instance != null && Instance != this)
