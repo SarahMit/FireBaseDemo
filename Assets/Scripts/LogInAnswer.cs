@@ -19,7 +19,8 @@ public class LogInAnswer : MonoBehaviour
 
     public void EnableNavigation()
     {
-        GameObject next = GameObject.Find("/DontDestroyOnLoad/LogHandler/Canvas/Next");
-        next.GetComponent<Button>().enabled = true;
+        GameObject next = GameObject.Find("/LogHandler/Canvas/Next");
+        Debug.Log(next.gameObject.name);
+        next.GetComponent<Button>().interactable = true;
     }
 }
