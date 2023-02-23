@@ -100,7 +100,7 @@ public class ParticipantResponses
     public string DictionaryToJSON(Dictionary<string, int> dict)
     {
         System.Text.StringBuilder sb = new System.Text.StringBuilder("");
-        sb.Append('"' + "Responses" + '"' + ":{\n");
+        sb.Append("{\n");
         int startlength = sb.Length;
         foreach (var pair in dict)
         {
