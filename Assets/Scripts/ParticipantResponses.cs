@@ -13,6 +13,9 @@ public class ParticipantResponses
     //stores all responses 
     private Dictionary<string, int> totalParticipantResponses = new Dictionary<string, int>();
 
+    public static ExperimentLogger Instance { get; private set; }
+    int pressCount = 0;
+
 
     public void UpdateSelection()
     {
@@ -20,6 +23,13 @@ public class ParticipantResponses
         string currentNameKey = currentGO.name;
         //ParticipantResponseDict[currentNameKey] = value;
 
+        // if button then count how often it is pressed
+        if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>() != null)
+        {
+            pressCount++;
+            Debug.Log("Button pressed " + pressCount + " times.");
+            recentParticipantResponses[currentNameKey] = pressCount;
+        }
 
         // if toggle button
         if (EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>() != null)
@@ -44,6 +54,8 @@ public class ParticipantResponses
 
     public Dictionary<string, int> TrackChanges()
     {
+        pressCount = 0;
+
         Dictionary<string, int> changes = new Dictionary<string, int>();
         foreach (var pair in recentParticipantResponses)
         {

@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Transition : MonoBehaviour
 {
     // These are the Scenes. Make sure to set them in the Inspector window.
     [SerializeField] List<string> sceneNameList = new List<string>();
+    [SerializeField] GameObject nextButton;
+    [SerializeField] GameObject prevButton;
 
     int currentSceneIndex;
     string currentSceneName;
@@ -40,8 +43,8 @@ public class Transition : MonoBehaviour
         {
             print("Next slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
+            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
 
-            ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
             SceneManager.LoadScene(sceneNameList[currentSceneIndex+1]);
         }
         else
@@ -57,8 +60,8 @@ public class Transition : MonoBehaviour
         {
             print("Previous slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
+            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
 
-            ExperimentLogger.Instance.log(currentSceneName + " ended after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
             SceneManager.LoadScene(sceneNameList[currentSceneIndex - 1]);
         }
         else
