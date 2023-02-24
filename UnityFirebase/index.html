@@ -23,7 +23,10 @@
         <div id="unity-build-title">FireBaseDemo</div>
       </div>
     </div>
-    <script>
+    <script type="module">
+      import {initializeApp} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+      import {getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.13.0//firebase-database.js";
+
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
@@ -56,11 +59,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/UnityFirebase.loader.js";
+      var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/UnityFirebase.data",
-        frameworkUrl: buildUrl + "/UnityFirebase.framework.js",
-        codeUrl: buildUrl + "/UnityFirebase.wasm",
+        dataUrl: buildUrl + "/Build.data.gz",
+        frameworkUrl: buildUrl + "/Build.framework.js.gz",
+        codeUrl: buildUrl + "/Build.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "FireBaseDemo",
@@ -97,11 +100,37 @@
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
+        }).then((unityInstance) => {
+          window.unityInstance = unityInstance;
+          
+          const firebaseApp = initializeApp({
+            apiKey: "AIzaSyB1X7Jir5Vn8eurKzEU2TWacjNg0dmfseE",
+            authDomain: "unityfirebasedemo-315d2.firebaseapp.com",
+            databaseURL: "https://unityfirebasedemo-315d2-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "unityfirebasedemo-315d2",
+            storageBucket: "unityfirebasedemo-315d2.appspot.com",
+            messagingSenderId: "162038407218",
+            appId: "1:162038407218:web:2a9ecdfa811a12a2629c2b"
+          });
+          const db = getDatabase(firebaseApp);
+          //const auth = firebaseApp.auth();
+          window.fireBaseWriter = function(projectName, userID, scenename, responses, seconds, dbindex) {
+            //set(ref(db, "UnityWebGLBuild" + '/' + id), {
+            //    slidename: "time",
+            //});
+            set(ref(db, projectName + "/" + userID + '/' +scenename + '/'), {
+                Responses: JSON.parse(responses),
+            });
+          }
+      }).catch((message) => {
+        alert(message);
+      })};
       document.body.appendChild(script);
+
+      var fireBaseWriter = function(projectName, userID, scenename, responses, seconds, dbindex)
+      {
+          window.fireBaseWriter(projectName, userID, scenename, responses, seconds, dbindex)
+      }
     </script>
   </body>
 </html>
