@@ -1,5 +1,6 @@
 # FireBaseDemo
- A small example of how to track UI inputs and time from a Unity WebGL Build using Firebase
+ A small example of how to track UI inputs and time from a Unity WebGL Build using Firebase.
+[WebGL Demo](https://visualstories.cs.ovgu.de/demo/UnityFirebase)
 
 ## In Unity
 Make sure to add a folder named `Plugins` which contains a 'jslib' file. This file defines the interface between JavaScript and Unity.
@@ -29,17 +30,17 @@ Build the project as WebGL project.
 
 
 ## In Firebase
-* Create a new project
-* Add an web app to your project
-* Under `SDK setup and configuration` select `Configuration`
+Create a new project.
+Add an web app to your project.
+Under `SDK setup and configuration` select `Configuration`.
 
 ![dynamic_label_screenshot](Readme/configuration.jpg)
 
-* In the project overview, a firebase hosting website has to be specified for the defined webapp
+In the project overview, a firebase hosting website has to be specified for the defined webapp.
 
 ![dynamic_label_screenshot](Readme/hostingwebsite.jpg)
 
-* In your index.html of the Unity WebGL build replace everything from `Script.onload = ()` to `document.body.appendChild(script);` with the following (you have to adapt it by using the data from you own firebase and depending on what values you want to track):
+In your index.html of the Unity WebGL build replace everything from `Script.onload = ()` to `document.body.appendChild(script);` with the following (you have to adapt it by using the data from you own firebase and depending on what values you want to track):
 
 ```
 script.onload = () => {
@@ -85,4 +86,4 @@ script.onload = () => {
       }
 ```
 
-* There is an example `index.html` in the git
+In the `ExperimentLogger` script a function is called which is marked with `Internal`. This function is taken from the jslib file and then executed in the browser as javascript. In the index.html must be added the appropriate counterpart. There is an example `index.html` in the git.
