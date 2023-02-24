@@ -1462,6 +1462,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6456202739655292606}
+        m_TargetAssemblyTypeName: Transition, Assembly-CSharp
+        m_MethodName: LogInTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4617997968729241173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1824,8 +1836,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4653480468517122672}
-        m_TargetAssemblyTypeName: LogInAnswer, Assembly-CSharp
+      - m_Target: {fileID: 4653480468517122665}
+        m_TargetAssemblyTypeName: DataLogger, Assembly-CSharp
         m_MethodName: EnableNavigation
         m_Mode: 1
         m_Arguments:
@@ -1859,7 +1871,6 @@ GameObject:
   - component: {fileID: 4653480468517122671}
   - component: {fileID: 4653480468517122664}
   - component: {fileID: 4653480468517122665}
-  - component: {fileID: 4653480468517122672}
   m_Layer: 5
   m_Name: Confidence
   m_TagString: Untagged
@@ -1890,18 +1901,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4653480468517122672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4653480468517122670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40c3815003dc6644b75c44e95f83f75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4653480469381673012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2062,7 @@ GameObject:
   - component: {fileID: 7249259304220963162}
   - component: {fileID: 8076503158450099633}
   - component: {fileID: 4106986650616797276}
+  - component: {fileID: 6456202739655292606}
   m_Layer: 0
   m_Name: LogInAnswer
   m_TagString: Untagged
@@ -2070,6 +2070,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6456202739655292606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456202739655292605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f0142461f3df24482b6ad2c93f5531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNameList: []
+  nextButton: {fileID: 0}
+  prevButton: {fileID: 0}
 --- !u!222 &7249259304220963162
 CanvasRenderer:
   m_ObjectHideFlags: 0

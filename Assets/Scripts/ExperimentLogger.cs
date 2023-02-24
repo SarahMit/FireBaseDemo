@@ -26,7 +26,8 @@ public class ExperimentLogger : MonoBehaviour
 
 
     [DllImport("__Internal")]
-    private static extern void WriteFirebase(string projectName, string userID, string scenename, string responses, int dbindex);
+    private static extern void WriteFirebase(string projectName, string userID, string scenename, string responses, float time, int dbindex);
+    //private static extern void WriteFirebase(string projectName, string userID, string scenename, string responses, int dbindex);
 
 
 
@@ -79,7 +80,7 @@ public class ExperimentLogger : MonoBehaviour
         if (sceneName != "")
         {
             dbIndex += 1;
-            WriteFirebase(projectName, hashValue.ToString(), sceneName, pr.DictionaryToJSON(dict), dbIndex);
+            WriteFirebase(projectName, hashValue.ToString(), sceneName, pr.DictionaryToJSON(dict), time, dbIndex);
         }
 #endif
     }

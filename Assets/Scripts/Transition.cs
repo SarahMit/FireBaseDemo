@@ -16,7 +16,7 @@ public class Transition : MonoBehaviour
     int numberOfScenes;
 
     float sceneStartTime;
-
+    float seconds = 0;
 
     public void Awake()
     {
@@ -37,15 +37,22 @@ public class Transition : MonoBehaviour
         currentSceneIndex = sceneNameList.IndexOf(currentSceneName);
     }
 
+    public void LogInTime()
+    {
+        seconds = Time.realtimeSinceStartup - sceneStartTime;
+    }
+
     public void GoToNext()
     {
         if (currentSceneName != sceneNameList[numberOfScenes-1])
         {
             print("Next slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
-            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
+            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict, seconds);
+            seconds = 0;
 
             SceneManager.LoadScene(sceneNameList[currentSceneIndex+1]);
+            deactivateNavigation();
         }
         else
         {
@@ -60,14 +67,27 @@ public class Transition : MonoBehaviour
         {
             print("Previous slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
-            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict);
+            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict, seconds);
+            seconds = 0;
 
             SceneManager.LoadScene(sceneNameList[currentSceneIndex - 1]);
+            deactivateNavigation();
         }
         else
         {
             print("Reached First Scene");
         }
+    }
+
+    // search for game objects in hierarchy and deactivate them
+    private void deactivateNavigation()
+    {
+        GameObject next = GameObject.Find("/LogHandler/Canvas/Next");
+        Debug.Log(next.gameObject.name);
+        next.GetComponent<Button>().interactable = false;
+        GameObject prev = GameObject.Find("/LogHandler/Canvas/Prev");
+        Debug.Log(prev.gameObject.name);
+        prev.GetComponent<Button>().interactable = false;
     }
 
     private void OnApplicationQuit()
