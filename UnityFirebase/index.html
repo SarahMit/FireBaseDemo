@@ -61,9 +61,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Build.data.gz",
-        frameworkUrl: buildUrl + "/Build.framework.js.gz",
-        codeUrl: buildUrl + "/Build.wasm.gz",
+        dataUrl: buildUrl + "/Build.data",
+        frameworkUrl: buildUrl + "/Build.framework.js",
+        codeUrl: buildUrl + "/Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "FireBaseDemo",
@@ -114,12 +114,13 @@
           });
           const db = getDatabase(firebaseApp);
           //const auth = firebaseApp.auth();
-          window.fireBaseWriter = function(projectName, userID, scenename, responses, seconds, dbindex) {
+          window.fireBaseWriter = function(projectName, userID, scenename, responses,  time, dbindex) {
             //set(ref(db, "UnityWebGLBuild" + '/' + id), {
             //    slidename: "time",
             //});
-            set(ref(db, projectName + "/" + userID + '/' +scenename + '/'), {
+            set(ref(db, projectName + "/" + userID + '/' +scenename + '/' + dbindex.toString() + '/'), {
                 Responses: JSON.parse(responses),
+                Time: time
             });
           }
       }).catch((message) => {
@@ -127,9 +128,9 @@
       })};
       document.body.appendChild(script);
 
-      var fireBaseWriter = function(projectName, userID, scenename, responses, seconds, dbindex)
+      var fireBaseWriter = function(projectName, userID, scenename, responses, time, dbindex)
       {
-          window.fireBaseWriter(projectName, userID, scenename, responses, seconds, dbindex)
+          window.fireBaseWriter(projectName, userID, scenename, responses,  time, dbindex)
       }
     </script>
   </body>
