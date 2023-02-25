@@ -64,16 +64,16 @@ public class ExperimentLogger : MonoBehaviour
         }
     }
 
-    public void log(string s, string sceneName, Dictionary<string, int> dict, float time = -1)
+    public void log(string sceneName, Dictionary<string, int> dict, float time = -1)
     {
-        Debug.Log(s + "; " + pr.DictionaryToString(dict));
+        Debug.Log(sceneName + "; " + pr.DictionaryToString(dict));
         var projectName = Application.productName;
 
 
         using (FileStream fs = new FileStream(filename, FileMode.Append, FileAccess.Write))
         using (StreamWriter sw = new StreamWriter(fs))
         {
-            sw.WriteLine(s + "; " + pr.DictionaryToString(dict));
+            sw.WriteLine(pr.DictionaryToString(dict));
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR

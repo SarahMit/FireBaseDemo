@@ -4,8 +4,8 @@ mergeInto(LibraryManager.library, {
         window.alert("Hello, world!");
     },
 
-    WriteFirebase: function(projectName, userID, scenename, responses, seconds, dbindex){
-      fireBaseWriter(UTF8ToString(projectName), UTF8ToString(userID), UTF8ToString(scenename), UTF8ToString(responses), UTF8ToString(seconds), UTF8ToString(dbindex));
+    WriteFirebase: function(projectName, userID, scenename, responses, time, dbindex){
+      fireBaseWriter(UTF8ToString(projectName), UTF8ToString(userID), UTF8ToString(scenename), UTF8ToString(responses), time, dbindex);
       //window.fireBaseWriter(UTF8ToString(projectName), UTF8ToString(userID), UTF8ToString(scenename), UTF8ToString(responses), UTF8ToString(dbindex));
     }
 });

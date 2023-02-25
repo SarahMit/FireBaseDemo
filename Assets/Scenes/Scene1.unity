@@ -1358,11 +1358,11 @@ RectTransform:
   m_Father: {fileID: 2108284620}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752424257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,11 +2021,11 @@ RectTransform:
   m_Father: {fileID: 2108284620}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 1, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &965582051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3465,12 +3465,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 585707526396755097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f0142461f3df24482b6ad2c93f5531, type: 3}
+  m_Script: {fileID: 11500000, guid: 659b43f5246a3ab4a8bbe0b86afa3da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameList: []
-  nextButton: {fileID: 0}
-  prevButton: {fileID: 0}
 --- !u!1 &612808384866890111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,8 +3718,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 585707526396755098}
-        m_TargetAssemblyTypeName: Transition, Assembly-CSharp
-        m_MethodName: LogInTime
+        m_TargetAssemblyTypeName: LogInTime, Assembly-CSharp
+        m_MethodName: LogTime
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

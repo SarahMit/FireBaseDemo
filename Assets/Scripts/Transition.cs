@@ -11,16 +11,27 @@ public class Transition : MonoBehaviour
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject prevButton;
 
-    int currentSceneIndex;
-    string currentSceneName;
+    public int currentSceneIndex { get; private set; }
+    public string currentSceneName { get; private set; }
     int numberOfScenes;
 
     float sceneStartTime;
     float seconds = 0;
 
+    public static Transition Instance { get; private set; }
+
+ 
     public void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Start()
@@ -37,10 +48,6 @@ public class Transition : MonoBehaviour
         currentSceneIndex = sceneNameList.IndexOf(currentSceneName);
     }
 
-    public void LogInTime()
-    {
-        seconds = Time.realtimeSinceStartup - sceneStartTime;
-    }
 
     public void GoToNext()
     {
@@ -48,8 +55,8 @@ public class Transition : MonoBehaviour
         {
             print("Next slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
-            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict, seconds);
-            seconds = 0;
+            ExperimentLogger.Instance.log(currentSceneName, dict, Time.realtimeSinceStartup - sceneStartTime);
+            sceneStartTime = Time.realtimeSinceStartup;
 
             SceneManager.LoadScene(sceneNameList[currentSceneIndex+1]);
             deactivateNavigation();
@@ -67,8 +74,8 @@ public class Transition : MonoBehaviour
         {
             print("Previous slide");
             var dict = ExperimentLogger.Instance.pr.TrackChanges();
-            ExperimentLogger.Instance.log(currentSceneName + " logged in after " + (Time.realtimeSinceStartup - sceneStartTime) + "s", currentSceneName, dict, seconds);
-            seconds = 0;
+            ExperimentLogger.Instance.log(currentSceneName, dict, Time.realtimeSinceStartup - sceneStartTime);
+            sceneStartTime = Time.realtimeSinceStartup;
 
             SceneManager.LoadScene(sceneNameList[currentSceneIndex - 1]);
             deactivateNavigation();
